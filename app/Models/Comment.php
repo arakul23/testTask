@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Comment extends Model implements \App\Task\Models\Comment
+class Comment extends Model
 {
     use HasFactory;
 
