@@ -8,7 +8,6 @@ use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostUpdateRequest;
-use Illuminate\Support\Facades\Hash;
 
 class PostController extends Controller
 {
@@ -37,9 +36,9 @@ class PostController extends Controller
 
     public function store(PostStoreRequest $request) : JsonResponse
     {
-        $user = Post::create($request->validated());
+        $post = Post::create($request->validated());
 
-        return response()->json($user, 201);
+        return response()->json($post, 201);
     }
 
     public function update(PostUpdateRequest $request, Post $post) : JsonResponse
@@ -49,7 +48,7 @@ class PostController extends Controller
         return response()->json($post, 200);
     }
 
-    public function delete(Post $post) : \Illuminate\Http\JsonResponse
+    public function delete(Post $post) : JsonResponse
     {
         $post->delete();
 

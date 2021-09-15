@@ -8,7 +8,7 @@ use App\Http\Requests\CommentUpdateRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
@@ -24,7 +24,7 @@ class CommentController extends Controller
         return Comment::with('replies')->where('post_id', $post->id)->where('id', $comment->id)->get();
     }
 
-    public function store(CommentStoreRequest $request, Post $post) : \Illuminate\Http\JsonResponse
+    public function store(CommentStoreRequest $request, Post $post) : JsonResponse
     {
         $data = $request->validated();
         $data['post_id'] = $post->id;
@@ -35,7 +35,7 @@ class CommentController extends Controller
         return response()->json($comment, 201);
     }
 
-    public function update(CommentUpdateRequest $request, Post $post, Comment $comment) : \Illuminate\Http\JsonResponse
+    public function update(CommentUpdateRequest $request, Post $post, Comment $comment) : JsonResponse
     {
         $data = $request->validated();
         $data['parent_id'] = Comment::all()->random()->id;
@@ -45,7 +45,7 @@ class CommentController extends Controller
         return response()->json($comment, 200);
     }
 
-    public function delete(Post $post, Comment $comment) : \Illuminate\Http\JsonResponse
+    public function delete(Post $post, Comment $comment) : JsonResponse
     {
         $comment->delete();
 
