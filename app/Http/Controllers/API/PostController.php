@@ -8,23 +8,16 @@ use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostUpdateRequest;
+use App\Http\Filter\QueryFilter;
 
 class PostController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, QueryFilter $filter)
     {
         $query = Post::with('comment.replies');
+        $query = $filter->filter($query, $request);
 
-        if ($request->filled('page') && $request->filled('perpage')) {
-            $count = $request->page * $request->perpage;
-            $query->skip($count)->take($request->perpage);
-        }
-
-        if ($request->filled('sort')) {
-            $query->orderBy($request->sort, $request->filled('sorttype') ? $request->sorttype : 'ASC');
-        }
-
-        return $query->get();
+        return $query;
     }
 
     public function show(Post $post)  : JsonResponse
