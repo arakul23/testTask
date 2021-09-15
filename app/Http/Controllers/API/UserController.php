@@ -29,9 +29,10 @@ class UserController extends Controller
         return $query->get();
     }
 
-    public function show(User $user): User
+    public function show(User $user): JsonResponse
     {
-        return $user;
+        return response()->json($user, 200);
+
     }
 
     public function store(UserStoreRequest $request) : JsonResponse

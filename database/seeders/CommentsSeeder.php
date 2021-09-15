@@ -17,23 +17,26 @@ class CommentsSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
+        $post = Post::all();
+        $user = User::all();
 
         for ($i = 0; $i < 10; $i++) {
             Comment::create([
                 'text' => $faker->text,
-                'post_id' => Post::all()->random()->id,
-                'user_id' => User::all()->random()->id,
+                'post_id' => $post->random()->id,
+                'user_id' => $user->random()->id,
                 'parent_id' => null,
             ]);
         }
 
+        $comment = Comment::all();
 
         for ($i = 0; $i < 10; $i++) {
             Comment::create([
                 'text' => $faker->text,
-                'post_id' => Post::all()->random()->id,
-                'user_id' => User::all()->random()->id,
-                'parent_id' => Comment::all()->random()->id,
+                'post_id' => $post->random()->id,
+                'user_id' =>$user->random()->id,
+                'parent_id' => $comment->random()->id,
             ]);
         }
     }

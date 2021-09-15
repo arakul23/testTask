@@ -8,11 +8,12 @@ use App\Http\Requests\CommentUpdateRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
-    public function index(Post $post)
+    public function index(Post $post) : Model
     {
         $post->load('comment.replies');
 
@@ -21,7 +22,9 @@ class CommentController extends Controller
 
     public function show(Post $post, Comment $comment)
     {
-        return Comment::with('replies')->where('post_id', $post->id)->where('id', $comment->id)->get();
+        $comment = Comment::with('replies')->where('post_id', $post->id)->where('id', $comment->id)->get();
+
+        return response()->json($comment, 201);
     }
 
     public function store(CommentStoreRequest $request, Post $post) : JsonResponse

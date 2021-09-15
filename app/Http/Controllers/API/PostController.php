@@ -27,11 +27,11 @@ class PostController extends Controller
         return $query->get();
     }
 
-    public function show(Post $post)  : Post
+    public function show(Post $post)  : JsonResponse
     {
         $post->load('comment');
 
-        return $post;
+        return response()->json($post, 200);
     }
 
     public function store(PostStoreRequest $request) : JsonResponse
