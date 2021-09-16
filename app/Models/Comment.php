@@ -23,9 +23,4 @@ class Comment extends Model
     {
         return $this->hasMany(self::class, 'parent_id');
     }
-
-    public function generate(int $number): void
-    {
-        // TODO: Implement generate() method.
-    }
 }

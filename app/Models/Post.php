@@ -19,14 +19,4 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function generate(int $number): void
-    {
-        // TODO: Implement generate() method.
-    }
-
-    public function comments(): array
-    {
-        // TODO: Implement comments() method.
-    }
-
 }

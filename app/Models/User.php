@@ -41,9 +41,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function generate(int $number): void
-    {
-        // TODO: Implement generate() method.
-    }
-
 }
